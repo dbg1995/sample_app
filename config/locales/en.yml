@@ -95,6 +95,7 @@ en:
       submit: "Log in"
       new_user: "New user?"
       sign_up: "Sign up now!"
+      remember: "Remember me on this computer"
   controller:
     user:
       welcome: "Welcome to the Sample App!"
