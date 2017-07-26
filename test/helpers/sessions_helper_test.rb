@@ -7,11 +7,12 @@ class SessionsHelperTest < ActionView::TestCase
     @user = users :michael
     remember @user
   end
-  test "current_user returns right user when session is nil" do
+  test "test login with cookie session is nil" do
     assert_equal @user, current_user
     assert is_logged_in?
   end
 
+  # test authenticated?
   test "current_user returns nil when remember digest is wrong" do
     # the first step change remember_digest in DB
     @user.update_attribute :remember_digest, User.digest(User.new_token)

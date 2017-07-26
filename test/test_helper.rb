@@ -8,7 +8,7 @@ module ActiveSupport
     include ApplicationHelper # inclue these help method to test it
     # include SessionsHelper # to use helper method for test login status
     # Add more helper methods to be used by all tests here...
-    def is_logged_in?
+    def is_logged_in? # check login status
       !session[:user_id].nil?
     end
 
@@ -20,6 +20,7 @@ module ActiveSupport
       # ":"" and "=" are default value, different is "=" only pass value when
       # call method and will auto pass it for left param. ":" need pass key and
       # value of param when call method and it pass correct involve param
+      # login with checkbox remember me
       def log_in_as user, password: "password", remember_me: "1"
         post login_path, params: {
           session: {

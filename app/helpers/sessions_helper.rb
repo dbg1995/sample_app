@@ -10,8 +10,10 @@ module SessionsHelper
   def current_user
     if user_id = session[:user_id]
       @current_user ||= User.find_by id: user_id
-    elsif user_id = cookies.signed[:user_id]
+    elsif user_id = cookies.signed[:user_id] # auto decrypts the user id cookie
       user = User.find_by id: user_id
+      # use remember_token to an attacker with both cookies can log in
+      # only until the user logs out.
       if user && user.authenticated?(cookies[:remember_token])
         log_in user
         @current_user = user
@@ -24,13 +26,13 @@ module SessionsHelper
   end
 
   def log_out
-    forget current_user
+    forget current_user # can't update_attribute here
     session.delete :user_id
     @current_user = nil
   end
 
   def remember user
-    # savet digest-token into database and set the remember token atribute
+    # save digest-token into database and set the remember token atribute
     user.remember
     # permanent 20 yeas, signed to encrypts, then place browser's cookie
     cookies.permanent.signed[:user_id] = user.id
@@ -38,7 +40,7 @@ module SessionsHelper
   end
 
   def forget user
-    user.forget # not communicate direct in helper,so call method in model
+    user.forget # can't update_attribute here
     cookies.delete :user_id
     cookies.delete :remember_token
   end

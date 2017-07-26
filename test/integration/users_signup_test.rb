@@ -3,6 +3,7 @@ require "test_helper"
 class UsersSignupTest < ActionDispatch::IntegrationTest
   test "invalid signup information" do
     get signup_path
+    # record the user count, post the data, verifying that the count is the same
     assert_no_difference "User.count" do
       post signup_path, params: {
         user: {
@@ -11,7 +12,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_template "users/new"
+    assert_template "users/new" # render new, @user contain error
     assert_select "div#error_explanation"
     assert_select "div.field_with_errors"
     assert_select 'form[action="/signup"]'

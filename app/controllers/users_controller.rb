@@ -12,16 +12,20 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new user_params # Not the final implementation!
+    @user = User.new user_params
     if @user.save
       log_in @user
       remember @user
-      # display a temporary messsage on the first page after at the moment
+      # display a temporary messsage on the page of the first request
       flash[:success] = t "controller.user.welcome"
       redirect_to @user # user_path(@user)
     else
       render :new # haven't a view for create action, so must render new view
     end
+  end
+
+  def edit
+    @user = User.find(params[:id])
   end
 
   private

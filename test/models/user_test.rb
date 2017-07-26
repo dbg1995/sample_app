@@ -37,6 +37,7 @@ class UserTest < ActiveSupport::TestCase
     )
     valid_addresses.each do |valid_address|
       @user.email = valid_address
+      # second argument is custom error message
       assert @user.valid?, "#{valid_address.inspect} should be valid"
     end
   end
@@ -63,6 +64,7 @@ class UserTest < ActiveSupport::TestCase
     mixed_case_email = "Foo@ExAMPle.CoM"
     @user.email = mixed_case_email
     @user.save
+    # reload: reloading a value from the database
     assert_equal mixed_case_email.downcase, @user.reload.email
   end
 

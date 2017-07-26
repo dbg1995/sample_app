@@ -1,7 +1,5 @@
-# ApplicationController class include Application helper => all controller more
-# specific all view can use it. In addition include Application layout => all
-# view can user Application layout
+# include Application layout => all view can user it
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  include SessionsHelper # to all view can use it
+  include SessionsHelper # to all controller more can use it
 end

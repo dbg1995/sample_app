@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :remember_token # create atrribute for User
-  before_save{email.downcase!}
+  before_save{email.downcase!} # before save into DB + standard for email in DB
   validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: {maximum: 255},
@@ -11,6 +11,7 @@ class User < ApplicationRecord
   # password with password_disert in DB
   has_secure_password
   validates :password, presence: true, length: {minimum: 6}
+  # create digest
   def self.digest string
     cost = if ActiveModel::SecurePassword.min_cost
       BCrypt::Engine::MIN_COST
@@ -28,12 +29,13 @@ class User < ApplicationRecord
     # self refer to a user object instance => refer to remember_token attribute
     # of curent object
     self.remember_token = User.new_token
-    # save digest of token into DB
-    update_attribute :remember_digest, User.digest(remember_token) # bypass
+    # save digest of token into DB bypass validates
+    update_attribute :remember_digest, User.digest(remember_token)
   end
 
-  # Returns true if the given token matches the digest.
+  # check remember_token when login
   def authenticated? remember_token
+    # fix error logout b1, b2 close and reopen can BCrypt::Password.new(nil)
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password? remember_token
   end
