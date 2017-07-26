@@ -2,7 +2,8 @@
 # an invalid user instead return false. makes debugger easier than silent errors
 User.create!(
   name:  "Võ Văn Danh", email: "danh13t1@gmail.com", password: "123456",
-  password_confirmation: "123456", admin: true
+  password_confirmation: "123456", admin: true, activated: true,
+  activated_at: Time.zone.now
 )
 
 99.times do |n|
@@ -11,6 +12,6 @@ User.create!(
   password = "password"
   User.create!(
     name: name, email: email, password: password,
-    password_confirmation: password
+    password_confirmation: password, activated: true, activated_at: Time.zone.now
   )
 end

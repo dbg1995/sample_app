@@ -14,7 +14,7 @@ module SessionsHelper
       user = User.find_by id: user_id
       # use remember_token to an attacker with both cookies can log in
       # only until the user logs out.
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token]) # of User model
         log_in user
         @current_user = user
       end

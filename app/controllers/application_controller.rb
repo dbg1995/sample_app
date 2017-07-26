@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   def logged_in_user # fix access page need login before
     return if logged_in?
     store_location # store URL to access after login
-    flash[:danger] = t "controller.user.logged_in_user.danger"
+    flash[:danger] = t"controller.user.logged_in_user.danger"
     redirect_to login_url
   end
 
