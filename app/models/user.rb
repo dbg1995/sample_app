@@ -1,6 +1,18 @@
 class User < ApplicationRecord
   # dependent microposts to be destroyed when the user itself is destroyed
   has_many :microposts, dependent: :destroy
+  # rails base a foreign key with <class>_id format finded class, in this case
+  # is follower_id -> need to pass class_name, and foreign_key
+  has_many :active_relationships, class_name: "Relationship",
+    foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship",
+    foreign_key: "followed_id", dependent: :destroy
+  # two command above create severial medthod create, build
+  # a user has many following through active_relationships table. source: :followed
+  # to cover following on followeds default
+  # autu create following method return a array
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email # before save object into DB
   # only auto call after validates and before save with create to initialize
@@ -102,7 +114,33 @@ class User < ApplicationRecord
   end
 
   def feed
-    Micropost.where "user_id = ?", id # self.id
+    # default following_ids return a array followed user'id = user.following.map(&:id)
+    # but it's bad with 5000 followed user because user.following is a array and
+    # map with get each element of array. so use sql command to faster. but id
+    # not avalible in eveytime so need to pass into following_ids + user_id in
+    # where command also need to pass in, so use :user_id for both
+    following_ids = "SELECT followed_id FROM relationships
+      WHERE follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id",
+      user_id: id) # self.id
+  end
+
+  def follow other_user
+    following << other_user # add element into array
+  end
+
+  # Unfollows a user.
+  def unfollow other_user
+    following.delete other_user # delete element out of array
+  end
+
+  # Returns true if the current user is following the other user.
+  def following? other_user
+    following.include? other_user # check array are there include other_user?
+  end
+
+  def followers? other_user
+    followers.include? other_user # check array are there include other_user?
   end
 
   private

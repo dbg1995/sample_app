@@ -5,13 +5,19 @@ Rails.application.routes.draw do
   get "/contact", to: "static_pages#contact"
   get "/signup", to: "users#new"
   post "/signup", to: "users#create"
-  resources :users
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
   resources :account_activations, only: :edit
   resources :password_resets, except: [:show, :destroy, :index]
   resources :microposts, only: [:create, :destroy]
+  # arranges routes to respond to URLs containing the user id. collection is not
+  resources :users do
+    member do
+      get :following, :followers #  /users/1/following
+    end
+  end
+  resources :relationships, only: [:create, :destroy]
   # edit_account_activation_url(@user.activation_token, email: @user.email)
   # activation link follow REST URL is patch request to update action but
   # activation link in an email, so use get request to edit action to instead
