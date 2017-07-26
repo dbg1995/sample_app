@@ -76,14 +76,24 @@ en:
       sign_up: "Sign up now!"
       logo: "Rails logo"
   user:
-    new:
-      title: "Sign up"
-      page: This will be a signup page for new users.
+    form:
       name: "Name"
       email: "Email"
       password: "Password"
       confirmation: "Password confirmation"
+    new:
+      title: "Sign up"
+      page: "This will be a signup page for new users."
       create: "Create my account"
+    edit:
+      title: "Edit user"
+      save: "Save changes"
+      change: "change"
+    index:
+      title: "All users"
+    user:
+      confirm: "You sure?"
+      delete: "delete"
   error:
     contains: "The form contains"
     count: "error"
@@ -99,6 +109,12 @@ en:
   controller:
     user:
       welcome: "Welcome to the Sample App!"
-      error: "User does not exist"
+      error_id: "User does not exist"
+      error: "Profile updated"
+      updated: "update successful"
+      destroy:
+        success: "User deleted"
+      logged_in_user:
+        danger: "Please log in."
     session:
       error: "Invalid email/password combination"

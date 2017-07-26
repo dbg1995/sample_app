@@ -1,13 +1,13 @@
-<% provide(:title, (t "sessions.new.title")) %>
+<% provide(:title, t("sessions.new.title")) %>
 <h1><%= t "sessions.new.title" %></h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(:session, url: login_path) do |f| %>
 
-      <%= f.label :email, (t "sessions.new.email") %>
+      <%= f.label :email, t("sessions.new.email") %>
       <%= f.email_field :email, class: "form-control" %>
 
-      <%= f.label :password, (t "sessions.new.password") %>
+      <%= f.label :password, t("sessions.new.password") %>
       <%= f.password_field :password, class: "form-control" %>
 
       <%= f.label :remember_me, class: "checkbox inline" do %>
@@ -15,9 +15,9 @@
         <span><%= t "sessions.new.remember" %></span>
       <% end %>
 
-      <%= f.submit (t "sessions.new.submit"), class: "btn btn-primary" %>
+      <%= f.submit t("sessions.new.submit"), class: "btn btn-primary" %>
     <% end %>
-    <p><%= t "sessions.new.new_user" %><%= link_to (t "sessions.new.sign_up"),
+    <p><%= t "sessions.new.new_user" %><%= link_to t("sessions.new.sign_up"),
       signup_path %></p>
   </div>
 </div>

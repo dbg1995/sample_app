@@ -1,25 +1,11 @@
-<% provide(:title, (t "user.new.title")) %>
+<% provide(:title, t("user.new.title")) %>
+<% provide(:button_text, t("user.new.create")) %>
 <h1><%= t "user.new.title" %></h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
   <!-- @user is new object of User class => action /user , method post and
     create 1 user hash include list of key wihch are arguments of input element,
     these arguments are attributes of User class -->
-    <%= form_for(@user,url: signup_path) do |f| %>
-      <%= render "shared/error_messages" %>
-      <%= f.label :name, (t "user.new.name") %>
-      <%= f.text_field :name, class: "form-control" %>
-
-      <%= f.label :email, (t "user.new.email") %>
-      <%= f.email_field :email, class: "form-control" %>
-
-      <%= f.label :password, (t "user.new.password") %>
-      <%= f.password_field :password, class: "form-control" %>
-
-      <%= f.label :password_confirmation, (t "user.new.confirmation") %>
-      <%= f.password_field :password_confirmation, class: "form-control" %>
-
-      <%= f.submit (t "user.new.create"), class: "btn btn-primary" %>
-    <% end %>
+    <%= render "form", url: {url: signup_path} %>
   </div>
 </div>

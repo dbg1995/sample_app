@@ -1,22 +1,28 @@
 class UsersController < ApplicationController
-  def show
-    @user = User.find_by(id: params[:id])
-    if @user.nil?
-      flash[:danger] = t "controller.user.error"
-      redirect_to root_path
-    end
+  before_action :load_user, only: %I[show destroy edit update]
+  before_action :logged_in_user, only: %I[index edit update destroy] # an array of symbol
+  before_action :correct_user, only: %I[edit update] # only edit their infor
+  before_action :admin_user, only: :destroy
+
+  def index
+    # of rails. A hash argument with key :page, value is number page requested
+    # return 30 users one time if enough. params[:page] is generated
+    # automatically by will_paginate in view.
+    @users = User.paginate page: params[:page]
   end
+
+  def show; end
 
   def new
     @user = User.new
   end
 
-  def create
+  def create # post
     @user = User.new user_params
     if @user.save
       log_in @user
       remember @user
-      # display a temporary messsage on the page of the first request
+      # display a temporary messsage on the page of the first direct
       flash[:success] = t "controller.user.welcome"
       redirect_to @user # user_path(@user)
     else
@@ -24,8 +30,21 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = User.find(params[:id])
+  def edit; end
+
+  def update # patch
+    if @user.update_attributes user_params
+      flash[:success] = t "controller.user.updated"
+      redirect_to @user
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @user.destroy
+    flash[:success] = t "controller.user.destroy.success"
+    redirect_to users_url
   end
 
   private
@@ -38,5 +57,12 @@ class UsersController < ApplicationController
     # User model validations.If abundant the attribute of :user is alow
     params.require(:user).permit :name, :email, :password,
       :password_confirmation
+  end
+
+  def load_user
+    @user = User.find_by id: params[:id] # request to other user
+    return if @user
+    flash[:danger] = t "controller.user.error_id"
+    redirect_to root_path
   end
 end
