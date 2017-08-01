@@ -1,6 +1,11 @@
-<h1>Sample App</h1>
-<p>
-  This is the home page for the
-  <a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
-  sample application.
-</p>
+<div class="center jumbotron">
+  <h1><%= t "static_pages.home.welcome" %></h1>
+  <h2>
+    <%= t "static_pages.home.page" %>
+    <a href="http://www.railstutorial.org/"><%= t "static_pages.home.rails" %></a>
+    <%= t "static_pages.home.sample" %>
+  </h2>
+  <%= link_to (t "static_pages.home.sign_up"), signup_path, class: "btn btn-lg btn-primary" %>
+</div>
+<%= link_to image_tag("rails.png", alt: (t "static_pages.home.logo")),
+  "http://rubyonrails.org/" %>
