@@ -74,3 +74,15 @@ en:
     new:
       title: "Sign up"
       page: This will be a signup page for new users.
+      name: "Name"
+      email: "Email"
+      password: "Password"
+      confirmation: "Password confirmation"
+      create: "Create my account"
+  error:
+    contains: "The form contains"
+    count: "error"
+  controller:
+    user:
+      welcome: "Welcome to the Sample App!"
+      error: "User does not exist"
