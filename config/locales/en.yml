@@ -41,6 +41,11 @@ en:
     home: "Home"
     help: "Help"
     login: "Log in"
+    account: "Account"
+    profile: "Profile"
+    settings: "Settings"
+    logout: "Log out"
+    users: "Users"
   static_pages:
     about:
       title: "About"
@@ -82,7 +87,17 @@ en:
   error:
     contains: "The form contains"
     count: "error"
+  sessions:
+    new:
+      title: "Log in"
+      email: "Email"
+      password: "Password"
+      submit: "Log in"
+      new_user: "New user?"
+      sign_up: "Sign up now!"
   controller:
     user:
       welcome: "Welcome to the Sample App!"
       error: "User does not exist"
+    session:
+      error: "Invalid email/password combination"

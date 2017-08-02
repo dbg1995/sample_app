@@ -6,6 +6,7 @@ module ActiveSupport
     # for all tests in alphabetical order.
     fixtures :all
     # Add more helper methods to be used by all tests here...
-    include ApplicationHelper
+    include ApplicationHelper # inclue these help method to test it
+    include SessionsHelper # to use helper method for test login status
   end
 end
