@@ -14,6 +14,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params # Not the final implementation!
     if @user.save
+      log_in @user
+      remember @user
       # display a temporary messsage on the first page after at the moment
       flash[:success] = t "controller.user.welcome"
       redirect_to @user # user_path(@user)
