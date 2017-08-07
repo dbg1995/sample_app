@@ -41,7 +41,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   test "login with remembering" do
     log_in_as @user, remember_me: "1"
     # assigns: access instance variables defined in the controller
-    # inside tests the cookies method doesn’t work with symbols as keys
+    # inside tests the cookies method doesn't work with symbols as keys
     assert_equal cookies["remember_token"], assigns(:user).remember_token
   end
 

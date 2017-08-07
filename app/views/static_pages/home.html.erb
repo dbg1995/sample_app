@@ -6,7 +6,7 @@
       </a>
     <%= t "static_pages.home.sample" %>
   </h2>
-  <%= link_to (t "static_pages.home.sign_up"), signup_path, class: "btn btn-lg btn-primary" %>
+  <%= link_to t("static_pages.home.sign_up"), signup_path, class: "btn btn-lg btn-primary" %>
 </div>
-<%= link_to image_tag("rails.png", alt: (t "static_pages.home.logo")),
+<%= link_to image_tag("rails.png", alt: t("static_pages.home.logo")),
   "http://rubyonrails.org/" %>
