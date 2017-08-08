@@ -106,15 +106,37 @@ en:
       new_user: "New user?"
       sign_up: "Sign up now!"
       remember: "Remember me on this computer"
+  user_mailer:
+    acc_activation:
+      title: "Sample App"
+      hi: "Hi "
+      welcome: "Welcome to the Sample App! Click on the link below to activate your account:"
+      activate: "Activate"
+    password_reset:
+      title: "password reset"
   controller:
     user:
       welcome: "Welcome to the Sample App!"
       error_id: "User does not exist"
+      error_activate: "Account not activated"
       error: "Profile updated"
       updated: "update successful"
       destroy:
         success: "User deleted"
       logged_in_user:
         danger: "Please log in."
+      create:
+        info: "Please check your email to activate your account."
     session:
       error: "Invalid email/password combination"
+      create:
+        message: "Account not activated. Check your email for the activation link."
+    acc_activation:
+      edit:
+        success: "Account activated!"
+        danger: "Invalid activation link"
+  mailer:
+    user_mailer:
+      acc_activation:
+        sub: "Account activation"
+        greeting: "Hi"

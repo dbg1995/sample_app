@@ -8,10 +8,14 @@ class UsersController < ApplicationController
     # of rails. A hash argument with key :page, value is number page requested
     # return 30 users one time if enough. params[:page] is generated
     # automatically by will_paginate in view.
-    @users = User.paginate page: params[:page]
+    @users = User.select_user_activated.paginate page: params[:page]
   end
 
-  def show; end
+  def show
+    return if @user.activated?
+    flash[:danger] = t"controller.user.error_activate"
+    redirect_to root_path
+  end
 
   def new
     @user = User.new
@@ -20,11 +24,9 @@ class UsersController < ApplicationController
   def create # post
     @user = User.new user_params
     if @user.save
-      log_in @user
-      remember @user
-      # display a temporary messsage on the page of the first direct
-      flash[:success] = t "controller.user.welcome"
-      redirect_to @user # user_path(@user)
+      @user.send_activation_email
+      flash[:info] = t"controller.user.create.info"
+      redirect_to root_url
     else
       render :new # haven't a view for create action, so must render new view
     end
@@ -34,7 +36,7 @@ class UsersController < ApplicationController
 
   def update # patch
     if @user.update_attributes user_params
-      flash[:success] = t "controller.user.updated"
+      flash[:success] = t"controller.user.updated"
       redirect_to @user
     else
       render :edit
@@ -43,7 +45,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    flash[:success] = t "controller.user.destroy.success"
+    flash[:success] = t"controller.user.destroy.success"
     redirect_to users_url
   end
 
@@ -62,7 +64,7 @@ class UsersController < ApplicationController
   def load_user
     @user = User.find_by id: params[:id] # request to other user
     return if @user
-    flash[:danger] = t "controller.user.error_id"
+    flash[:danger] = t"controller.user.error_id"
     redirect_to root_path
   end
 end
