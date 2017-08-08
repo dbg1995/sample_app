@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
   resources :account_activations, only: [:edit]
+  resources :password_resets, only: [:new, :create, :edit, :update]
   # edit_account_activation_url(@user.activation_token, email: @user.email)
   # activation link follow REST URL is patch request to update action but
   # activation link in an email, so use get request to edit action to instead
