@@ -10,10 +10,10 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email
-      flash[:info] = t"controller.password_reset.create.info"
+      flash[:info] = t "controller.password_reset.create.info"
       redirect_to root_url
     else
-      flash.now[:danger] = t"controller.password_reset.create.danger"
+      flash.now[:danger] = t "controller.password_reset.create.danger"
       render :new
     end
   end
@@ -28,7 +28,7 @@ class PasswordResetsController < ApplicationController
     elsif @user.update_attributes user_params # validates in models
       log_in @user
       @user.update_attributes reset_digest: nil
-      flash[:success] = t"controller.password_reset.update.success"
+      flash[:success] = t "controller.password_reset.update.success"
       return redirect_to @user
     end # invalid result of validates of models,so auto add error into object
     render :edit
@@ -44,7 +44,7 @@ class PasswordResetsController < ApplicationController
   def load_user
     @user = User.find_by email: params[:email]
     return if @user
-    flash[:danger] = t"controller.user.error_id"
+    flash[:danger] = t "controller.user.error_id"
     redirect_to root_path
   end
 
@@ -57,7 +57,7 @@ class PasswordResetsController < ApplicationController
   # Checks expiration of reset token.
   def check_expiration
     return unless @user.password_reset_expired?
-    flash[:danger] = t"controller.password_reset.check_expiration.danger"
+    flash[:danger] = t "controller.password_reset.check_expiration.danger"
     redirect_to new_password_reset_url
   end
 end

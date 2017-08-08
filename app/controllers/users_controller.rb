@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :load_user, only: %I[show destroy edit update]
-  before_action :logged_in_user, only: %I[index edit update destroy] # an array of symbol
+  before_action :load_user, except: %I[new index create]
+  before_action :logged_in_user, except: %I[show create new] # an array of symbol
   before_action :correct_user, only: %I[edit update] # only edit their infor
   before_action :admin_user, only: :destroy
 
@@ -12,8 +12,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    @microposts = @user.microposts.paginate page: params[:page]
     return if @user.activated?
-    flash[:danger] = t"controller.user.error_activate"
+    flash[:danger] = t "controller.user.error_activate"
     redirect_to root_path
   end
 
@@ -25,7 +26,7 @@ class UsersController < ApplicationController
     @user = User.new user_params
     if @user.save
       @user.send_activation_email
-      flash[:info] = t"controller.user.create.info"
+      flash[:info] = t "controller.user.create.info"
       redirect_to root_url
     else
       render :new # haven't a view for create action, so must render new view
@@ -44,9 +45,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    flash[:success] = t"controller.user.destroy.success"
-    redirect_to users_url
+    if @user.destroy
+      flash[:success] = t "controller.user.destroy.success"
+      redirect_to users_url
+    else
+      flash[:danger] = t "controller.user.destroy.danger"
+      redirect_to root_url
+    end
   end
 
   private

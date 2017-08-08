@@ -75,6 +75,7 @@ en:
       sample: "sample application."
       sign_up: "Sign up now!"
       logo: "Rails logo"
+      feed: "Micropost Feed"
   user:
     form:
       name: "Name"
@@ -89,6 +90,8 @@ en:
       title: "Edit user"
       save: "Save changes"
       change: "change"
+    show:
+      microposts: "Microposts "
     index:
       title: "All users"
     user:
@@ -130,6 +133,19 @@ en:
       password: "Password"
       confirmation: "Password confirmation"
       submit: "Update password"
+  micropost:
+    micropost:
+      posted: "Posted"
+      ago: " ago."
+      sure: "You sure?"
+      delete: "delete"
+  shared:
+    user_info:
+      profile: "view my profile"
+      micropost: "micropost"
+    micropost:
+      compose: "Compose new micropost..."
+      post: "Post"
   controller:
     user:
       welcome: "Welcome to the Sample App!"
@@ -139,6 +155,7 @@ en:
       updated: "update successful"
       destroy:
         success: "User deleted"
+        danger: "User not deleted"
       logged_in_user:
         danger: "Please log in."
       create:
@@ -159,6 +176,12 @@ en:
         success: "Password has been reset."
       check_expiration:
         danger: "Password reset has expired."
+    micropost:
+      create:
+        success: "Micropost created!"
+      destroy:
+        success: "Micropost deleted"
+        danger: "Micropost not deleted"
   mailer:
     user_mailer:
       acc_activation:
@@ -166,3 +189,7 @@ en:
         greeting: "Hi"
       password_reset:
         sub: "Password reset"
+  model:
+    micropost:
+      picture_size:
+        error: "should be less than 5MB"

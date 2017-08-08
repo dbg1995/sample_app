@@ -1,10 +1,10 @@
 <% provide(:title, t("password_reset.edit.title")) %>
-<h1><%= t"password_reset.edit.title" %></h1>
+<h1><%= t "password_reset.edit.title" %></h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
-      <%= render "shared/error_messages", object: @user %>
+      <%= render "shared/error_messages", object: f.object %>
       <!-- email will auto available in edit action because it got form passsword
       reset but after submit it will lost so use hidden field.link puts email in
       params[:email], whereas f.hidden_field puts it in params[:user][:email],

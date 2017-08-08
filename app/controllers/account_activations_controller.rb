@@ -8,10 +8,10 @@ class AccountActivationsController < ApplicationController
       user.activate
       log_in user
       # display a temporary messsage on the page of the first direct
-      flash[:success] = t"controller.acc_activation.edit.success"
+      flash[:success] = t "controller.acc_activation.edit.success"
       redirect_to user
     else
-      flash[:danger] = t"controller.acc_activation.edit.danger"
+      flash[:danger] = t "controller.acc_activation.edit.danger"
       redirect_to root_url
     end
   end

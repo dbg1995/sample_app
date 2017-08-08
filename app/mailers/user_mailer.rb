@@ -2,7 +2,7 @@
 class UserMailer < ApplicationMailer
   def account_activation user
     @user = user
-    @greeting = t"mailer.user_mailer.acc_activation.greeting"
+    @greeting = t "mailer.user_mailer.acc_activation.greeting"
     # mail mothed use view creates content mail then return a mail for deliver_now
     # send in two kind of message are txt and html.
     # Instead of render a view and send it over the HTTP protocol,

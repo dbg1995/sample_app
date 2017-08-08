@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
       # can login page is derected when access edit page but hasn't login
       redirect_back_or user # check page need direct
     else
-      flash[:warning] = t"controller.session.create.message"
+      flash[:warning] = t "controller.session.create.message"
       redirect_to root_url
     end
   end
