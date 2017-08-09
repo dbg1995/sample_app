@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :load_user, except: %I[new index create]
-  before_action :logged_in_user, except: %I[show create new] # an array of symbol
+  before_action :logged_in_user,
+    only: %I[index edit update destroy following followers] # an array of symbol
   before_action :correct_user, only: %I[edit update] # only edit their infor
   before_action :admin_user, only: :destroy
 
@@ -37,7 +38,7 @@ class UsersController < ApplicationController
 
   def update # patch
     if @user.update_attributes user_params
-      flash[:success] = t"controller.user.updated"
+      flash[:success] = t "controller.user.updated"
       redirect_to @user
     else
       render :edit
@@ -50,6 +51,28 @@ class UsersController < ApplicationController
       redirect_to users_url
     else
       flash[:danger] = t "controller.user.destroy.danger"
+      redirect_to root_url
+    end
+  end
+
+  def following
+    @title = t "controller.user.following.title"
+    @user = User.find_by id: params[:id]
+    if @user
+      @users = @user.following.paginate page: params[:page]
+      render "show_follow"
+    else
+      redirect_to root_url
+    end
+  end
+
+  def followers
+    @title = t "controller.user.followers.title"
+    @user = User.find_by id: params[:id]
+    if @user
+      @users = @user.followers.paginate page: params[:page]
+      render "show_follow"
+    else
       redirect_to root_url
     end
   end
@@ -69,7 +92,7 @@ class UsersController < ApplicationController
   def load_user
     @user = User.find_by id: params[:id] # request to other user
     return if @user
-    flash[:danger] = t"controller.user.error_id"
+    flash[:danger] = t "controller.user.error_id"
     redirect_to root_path
   end
 end

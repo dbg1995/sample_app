@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     else
       # use flash.now to display flash messages on rendered pages when direct
       # will lost
-      flash.now[:danger] = t"controller.session.error"
+      flash.now[:danger] = t "controller.session.error"
       render :new
     end
   end

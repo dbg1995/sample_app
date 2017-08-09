@@ -97,6 +97,13 @@ en:
     user:
       confirm: "You sure?"
       delete: "delete"
+    follow:
+      follow: "Follow"
+    unfollow:
+      unfollow: "Unfollow"
+    show_follow:
+      view: "view my profile"
+      microposts: "Microposts:"
   error:
     contains: "The form contains"
     count: "error"
@@ -146,6 +153,9 @@ en:
     micropost:
       compose: "Compose new micropost..."
       post: "Post"
+    stats:
+      following: "following"
+      followers: "followers"
   controller:
     user:
       welcome: "Welcome to the Sample App!"
@@ -160,6 +170,10 @@ en:
         danger: "Please log in."
       create:
         info: "Please check your email to activate your account."
+      following:
+        title: "Following"
+      followers:
+        title: "Followers"
     session:
       error: "Invalid email/password combination"
       create:
